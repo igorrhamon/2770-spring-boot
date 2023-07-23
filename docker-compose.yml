@@ -10,9 +10,16 @@ services:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 3306:3306
+    networks:
+      - backend
 
-  adminer:
-    image: adminer
+  app:
+    image: springboot
     restart: always
     ports:
       - 8080:8080
+    networks:
+      - backend
+
+networks:
+  backend:
