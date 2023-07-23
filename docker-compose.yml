@@ -6,18 +6,45 @@ services:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
+    build:
+      context: ./mysqlDocker
+      dockerfile: Dockerfile
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vollmed_api
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: myuser
+      # no password
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      #      Allow root login from outside container
+      MYSQL_ROOT_HOST: '%'
+      #      Allow user login from outside container
+      MYSQL_USER_HOST: '%'
+      # Adminer for database management
+
+    volumes:
+      - ./mysql:/var/lib/mysql
     ports:
       - 3306:3306
     networks:
       - backend
 
-  app:
-    image: springboot
+  adminer:
+    image: adminer
     restart: always
     ports:
       - 8080:8080
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+      ADMINER_DEFAULT_USERNAME: myuser
+      ADMINER_DEFAULT_PASSWORD: myuser
+    networks:
+      - backend
+  # App from source code springboot
+  app:
+    build: . # build from Dockerfile
+    ports:
+      - 8081:8081
     networks:
       - backend
 

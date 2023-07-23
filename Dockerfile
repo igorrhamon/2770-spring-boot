@@ -1,4 +1,5 @@
-FROM ubuntu:latest
-LABEL authors="gitpod"
+FROM openjdk:17-jdk-alpine
+COPY target/api-0.0.1-SNAPSHOT.jar api-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/api-0.0.1-SNAPSHOT.jar"]
 
-ENTRYPOINT ["top", "-b"]
+GRANT ALL ON *.* TO 'user'@'%' IDENTIFIED BY 'password';
