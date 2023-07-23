@@ -2,4 +2,4 @@
 tasks:
   - init: ./mvnw install
     command: ./mvnw spring-boot:run
-  - init: docker-compose -f my-compose-file.yml up -d
+  - init: docker-compose -f docker-compose.yml up -d
