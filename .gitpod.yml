@@ -1,5 +1,6 @@
+image:
+  file: .gitpod.Dockerfile
 
 tasks:
   - init: ./mvnw install
     command: ./mvnw spring-boot:run
-  - init: docker-compose -f docker-compose.yml up -d
